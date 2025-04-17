@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: consumer
+
+  datasource:
+    url: jdbc:postgresql://ep-falling-scene-a1ll8k24-pooler.ap-southeast-1.aws.neon.tech:5432/neondb
+    username: neondb_owner
+    password: npg_0AjmODVIC8wx
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: consumer-group-1
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+server:
+  port: 8081
