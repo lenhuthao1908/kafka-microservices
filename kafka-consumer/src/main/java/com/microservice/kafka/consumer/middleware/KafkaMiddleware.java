@@ -29,34 +29,24 @@ public class KafkaMiddleware {
 
     @KafkaListener(
             topics = {
-                    "service1_topic", "service2_topic", "service3_topic", "service4_topic"
+                    SERVICE1_TOPIC, SERVICE2_TOPIC, SERVICE3_TOPIC, SERVICE4_TOPIC
             },
-            groupId = "consumer-group-1"
+            groupId = "consumer-group-1",
+            containerFactory = "kafkaListenerContainerFactory"
     )
-    @SendTo("reply_topic")
+//    @SendTo("reply_topic")
     public String listen(ConsumerRecord<String, String> request) throws Exception {
         String topic = request.topic();
         String value = request.value();
         String response;
 
         switch (topic) {
-            case SERVICE1_TOPIC -> {
-                response = kafkaConsumerService1Listener.listener(value);
-            }
-            case SERVICE2_TOPIC -> {
-                response = kafkaConsumerService2Listener.listener(value);
-            }
-            case SERVICE3_TOPIC -> {
-                response = kafkaConsumerService3Listener.listener(value);
-            }
-            case SERVICE4_TOPIC -> {
-                response = kafkaConsumerService4Listener.listener(value);
-            }
-            default -> {
-                response = "Invalid topic: " + topic;
-            }
+            case SERVICE1_TOPIC -> response = kafkaConsumerService1Listener.listener(value);
+            case SERVICE2_TOPIC -> response = kafkaConsumerService2Listener.listener(value);
+            case SERVICE3_TOPIC -> response = kafkaConsumerService3Listener.listener(value);
+            case SERVICE4_TOPIC -> response = kafkaConsumerService4Listener.listener(value);
+            default -> response = "Invalid topic: " + topic;
         }
         return response;
     }
-
 }
