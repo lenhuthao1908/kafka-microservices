@@ -42,7 +42,7 @@ public class KafkaConsumerService1ListenerImpl implements KafkaConsumerService1L
                 );
             }
             case LIST_TYPE -> {
-                List<KafkaMessageEntity> list = kafkaConsumerService1.getList(); // giả sử trả List<String>
+                List<KafkaMessageEntity> list = kafkaConsumerService1.getList();
                 return objectMapper.writeValueAsString(list);
             }
             default -> {
