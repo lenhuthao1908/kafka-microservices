@@ -1,6 +1,7 @@
 package com.microservice.kafka.producer.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.microservice.kafka.producer.common.ApiCommon;
 import com.microservice.kafka.producer.dto.KafkaMessageDto;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/message")
+@RequestMapping(ApiCommon.API_V1_URI + ApiCommon.MESSAGE_URI)
 public class KafkaProducerController {
 //    @Autowired
 //    private ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate;
@@ -21,7 +22,7 @@ public class KafkaProducerController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @PostMapping("/create")
+    @PostMapping(ApiCommon.CREATE_URI)
     public String createMessage(@RequestBody KafkaMessageDto kafkaMessageDto) throws Exception {
         String payload = objectMapper.writeValueAsString(kafkaMessageDto);
 
@@ -37,7 +38,7 @@ public class KafkaProducerController {
         return "call successfully!";
     }
 
-    @GetMapping("/list/{topic}")
+    @GetMapping(ApiCommon.LIST_URI + ApiCommon.NONE_URI + ApiCommon.TOPIC_PATH_VARIABLE)
     public String getListMessage(@PathVariable(name = "topic") String topic) throws Exception {
         KafkaMessageDto kafkaMessageDto = new KafkaMessageDto();
         kafkaMessageDto.setTopic(topic);

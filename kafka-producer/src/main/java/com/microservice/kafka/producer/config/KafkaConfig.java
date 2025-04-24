@@ -1,5 +1,6 @@
 package com.microservice.kafka.producer.config;
 
+import com.microservice.kafka.producer.enums.TopicEnums;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -12,7 +13,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -31,6 +34,11 @@ public class KafkaConfig {
         configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 //        configs.put(ProducerConfig.ACKS_CONFIG, "all");
         return new DefaultKafkaProducerFactory<>(configs);
+    }
+
+    @Bean
+    public KafkaTemplate<String, String> kafkaTemplate() {
+        return new KafkaTemplate<String, String>(producerFactory());
     }
 
     @Bean
@@ -80,12 +88,13 @@ public class KafkaConfig {
 
     @Bean
     public KafkaAdmin.NewTopics defaultTopics() {
-        return new KafkaAdmin.NewTopics(
-                new NewTopic("service1_topic", 10, (short) 1),
-                new NewTopic("service2_topic", 10, (short) 1),
-                new NewTopic("service3_topic", 10, (short) 1),
-                new NewTopic("service4_topic", 10, (short) 1)
-        );
+        List<NewTopic> topicList = new ArrayList<>();
+        for (TopicEnums topic : TopicEnums.values()) {
+            NewTopic newTopic = new NewTopic(topic.getName(), topic.getNumPartitions(), topic.getReplicationFactor());
+            topicList.add(newTopic);
+        }
+
+        return new KafkaAdmin.NewTopics(topicList.toArray(new NewTopic[0]));
     }
 }
 

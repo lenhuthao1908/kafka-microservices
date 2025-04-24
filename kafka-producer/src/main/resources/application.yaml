@@ -17,8 +17,15 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer # set key convert
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer # convert value java response to byte
+      #[0]    producer sends event to kafka and does not wait for a response from kafka
+      #[1]    producer sends event to kafka when saves event success into leader(broker main), but followers(brokers) do not write
+      #[-1]   producer sends event to kafka when saves event success into leader(broker main) and followers(brokers) copy write success
+      acks: -1
+      retries: 1
+      #check prevent duplicate send
+      enable-idempotence: true
+      max-in-flight-requests-per-connection: 5
 server:
   port: 8080

@@ -22,5 +22,19 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
+  mail:
+    default-encoding: UTF-8
+    host: sandbox.smtp.mailtrap.io
+    username: 70c7b8733c146c
+    password: d8487f1f31677c
+    port: 2525
+    protocol: smtp
+    test-connection: false
+    smtp:
+      starttls:
+        enable: true
+      auth: true
+    debug: true
+
 server:
   port: 8088

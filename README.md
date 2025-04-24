@@ -17,6 +17,12 @@ This project integrates `Apache Kafka` into a `microservices architecture` to de
 - **kafka-producer**: Exposes REST API to produce messages.
 - **kafka-consumer**: Listens and processes messages from Kafka.
 - **docker-compose**: Sets up Kafka & Zookeeper.
+- **kafdrop**: UI management kafka.
+
+## `Document kafka configuration confluent platform`
+
+- **kafka-producer**: https://docs.confluent.io/platform/current/clients/producer.html
+- **kafka-consumer**: https://docs.confluent.io/platform/current/installation/configuration/consumer-configs.html
 
 ## `Getting Started`
 
