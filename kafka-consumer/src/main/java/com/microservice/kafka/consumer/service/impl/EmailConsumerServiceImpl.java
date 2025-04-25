@@ -56,6 +56,7 @@ public class EmailConsumerServiceImpl implements EmailConsumerService {
             mimeMessageHelper.setText(html, true);
             mimeMessageHelper.setSubject(messageDto.getSubject());
             mimeMessageHelper.setFrom(from);
+            javaMailSender.send(mimeMailMessage);
             log.info("[END] - sendMail success");
         } catch (Exception e) {
             log.error("email sent with error: " + e.getMessage() );
