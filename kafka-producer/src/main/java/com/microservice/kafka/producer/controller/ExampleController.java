@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(ApiCommon.API_V1_URI + ApiCommon.MESSAGE_URI)
-public class KafkaProducerController {
+public class ExampleController {
 //    @Autowired
 //    private ReplyingKafkaTemplate<String, String, String> replyingKafkaTemplate;
 

@@ -3,9 +3,9 @@ package com.microservice.kafka.consumer.listener.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microservice.kafka.consumer.dto.KafkaMessageDto;
-import com.microservice.kafka.consumer.entity.KafkaMessageEntity;
-import com.microservice.kafka.consumer.listener.KafkaConsumerService1Listener;
-import com.microservice.kafka.consumer.service.KafkaConsumerService1;
+import com.microservice.kafka.consumer.entity.MessageEntity;
+import com.microservice.kafka.consumer.listener.ExampleListener;
+import com.microservice.kafka.consumer.service.ExampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class KafkaConsumerService1ListenerImpl implements KafkaConsumerService1Listener {
+public class ExampleListenerImpl implements ExampleListener {
     @Autowired
-    private KafkaConsumerService1 kafkaConsumerService1;
+    private ExampleService exampleService;
 
     private final static String CREATE_TYPE = "create";
     private final static String UPDATE_TYPE = "update";
@@ -36,13 +36,13 @@ public class KafkaConsumerService1ListenerImpl implements KafkaConsumerService1L
 
         switch (kafkaMessageDto.getType()) {
             case CREATE_TYPE -> {
-                kafkaConsumerService1.create(kafkaMessageDto);
+                exampleService.create(kafkaMessageDto);
                 return objectMapper.writeValueAsString(
                         ResponseEntity.ok("Created successfully").getBody()
                 );
             }
             case LIST_TYPE -> {
-                List<KafkaMessageEntity> list = kafkaConsumerService1.getList();
+                List<MessageEntity> list = exampleService.getList();
                 return objectMapper.writeValueAsString(list);
             }
             default -> {

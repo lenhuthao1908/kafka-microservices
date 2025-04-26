@@ -1,11 +1,11 @@
 package com.microservice.kafka.consumer.service;
 
 import com.microservice.kafka.consumer.dto.KafkaMessageDto;
-import com.microservice.kafka.consumer.entity.KafkaMessageEntity;
+import com.microservice.kafka.consumer.entity.MessageEntity;
 
 import java.util.List;
 
-public interface KafkaConsumerService1 {
+public interface ExampleService {
     String create(KafkaMessageDto kafkaMessageDto);
-    List<KafkaMessageEntity> getList();
+    List<MessageEntity> getList();
 }

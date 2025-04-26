@@ -1,5 +1,8 @@
 package com.microservice.kafka.consumer.listener;
 
-public interface KafkaConsumerService2Listener {
+import org.springframework.stereotype.Component;
+
+@Component
+public interface ExampleListener {
     String listener(String value) throws Exception;
 }
