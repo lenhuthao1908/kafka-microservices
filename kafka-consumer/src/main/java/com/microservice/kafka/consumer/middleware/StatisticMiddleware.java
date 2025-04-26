@@ -1,29 +1,28 @@
 package com.microservice.kafka.consumer.middleware;
 
-import com.microservice.kafka.consumer.listener.ExampleListener;
-import com.microservice.kafka.consumer.listener.NotificationListener;
+import com.microservice.kafka.consumer.listener.StatisticListener;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 /**
- * NotificationMiddleware
+ * StatisticMiddleware
  *
  * @author haoln
  * @version 01-00
  * @since 4/26/2025
  */
 @Component
-public class NotificationMiddleware {
+public class StatisticMiddleware {
     @Autowired
-    private NotificationListener notificationListener;
+    private StatisticListener statisticListener;
 
-    private final static String NOTIFICATION_TOPIC = "notification_topic";
+    private final static String STATISTIC_TOPIC = "statistic_topic";
 
     @KafkaListener(
             topics = {
-                    NOTIFICATION_TOPIC
+                    STATISTIC_TOPIC
             },
             groupId = "consumer-group",
             containerFactory = "kafkaListenerContainerFactory"
@@ -32,7 +31,7 @@ public class NotificationMiddleware {
         String topic = request.topic();
         String value = request.value();
         switch (topic) {
-            case NOTIFICATION_TOPIC -> notificationListener.listener(value);
+            case STATISTIC_TOPIC -> statisticListener.listener(value);
             default -> throw new Exception("Invalid topic: " + topic);
         }
     }

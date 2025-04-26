@@ -14,10 +14,7 @@ import org.springframework.context.annotation.Bean;
 @AllArgsConstructor
 @Getter
 public enum TopicEnums {
-    SERVICE1_TOPIC("service1_topic", 10, (short)1),
-    SERVICE2_TOPIC("service2_topic", 10, (short) 1),
-    SERVICE3_TOPIC("service3_topic", 10, (short) 1),
-    SERVICE4_TOPIC("service4_topic", 10, (short) 1),
+    SERVICE1_TOPIC("example_topic", 10, (short)1),
     NOTIFICATION_TOPIC("notification_topic", 2, (short) 1),
     STATISTIC_TOPIC("statistic_topic", 1, (short) 1),
     ;
